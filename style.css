@@ -1,0 +1,245 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #ffffff;
+    font-family: 'Raleway', sans-serif;
+    /* background: url(../img/illustration-japanese-city.jpg) center center no-repeat; */
+    background-size: cover;
+    height: auto;
+}
+/* body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.468); 
+    z-index: -1;
+} */
+.block-searcher {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.header {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    width: auto;
+    height: 50px;
+    background: rgb(149,42,168);
+    background: linear-gradient(90deg, rgba(149,42,168,1) 0%, rgba(156,0,255,1) 47%, rgba(178,99,224,1) 100%);
+}
+
+.span {
+    display: grid;
+}
+.spanOne {
+    width: 30px;
+    height: 3px;
+    padding-top: 5px;
+    margin: 2px 2px 2px 2px;
+    background-color: #fff;
+    border-radius: 50px;
+}
+.btn-span {
+    background: #00000000;
+    border: none;
+    cursor: pointer;
+}
+
+.header-href {
+    display: grid;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: 15px;
+    padding-top: 3px;
+    padding-left: 10px;
+    font-weight: 600;
+    color: #000000;
+    text-decoration: none;
+}
+.header-href:hover{
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    background: rgb(149,42,168);
+    transition: 0.8s;
+}
+
+.header-logo {
+    width: 135px;
+    height: 85px;
+}
+
+.sidebar {
+    display: none;
+    position: absolute;
+    top: 150;
+    left: 0;
+    width: 210px;
+    height: 677px;
+    border: 1px solid #000;
+    background-color: #ffffff;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.block-shop {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 100px;
+}
+
+.input-meaning {
+    width: 250px;
+    height: 35px;
+    border-radius: 8px;
+    border: none;
+    border: 1px solid rgb(149,42,168);
+    background-color: rgba(255, 255, 255, 0.379);
+}
+
+input:focus {
+    outline: none;
+}
+
+.input-meaning::placeholder {
+    font-size: 12px;
+    padding-left: 10px;
+    color: #000000;
+}
+
+.bnt-add {
+    width: 250px;
+    height: 30px;
+    border: 1px solid #000;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    background: rgb(178,79,222);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.bnt-add:hover {
+    background-color: #a121d8;
+    transition: 0.5s;
+}
+
+.search-add {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 450px;
+    height: auto;
+    gap: 20px;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+    padding: 20px 0 20px 0;
+    font-weight: 400;
+    border-radius: 15px;
+    border: 2px solid rgb(149,42,168);
+    margin: 100px 0 0 50px;
+    background-color: rgba(255, 255, 255, 0.379);
+}
+
+.search-add h1 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #000;
+}
+
+.cardBlock {
+    display: inline-block;
+    border-radius: 10px;
+    margin-top: 5px;
+    text-align: center;
+    padding: 0 0 10px 0;
+    width: 350px;
+    height: auto;
+    border: 2px solid rgb(149,42,168);
+    color: #56008b;
+    font-size: 20px;
+}
+
+
+.text-container {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+}
+
+.removeBtn {
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+    margin-right: 300px;
+    border-radius: 50px;
+    background-color: rgb(149,42,168);
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid rgb(149,42,168);
+}
+
+.removeBtn:hover{
+    color: #56008b;
+    background: #fff;
+    transition: 0.8s;
+}
+
+.incorrect-price, 
+.incorrect-data,
+.absence-goods,
+.invalid-characters,
+.duplicate,
+.network-error {
+    padding: 70px;
+    color: #000;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.button-img {
+    margin-top: 10px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.img-btn {
+    width: 20px;
+    height: 20px;
+}
+
+
+.loading-title {
+    font-size: 24px;
+    font-weight: bold;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-title::after {
+    content: " .";
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0% { content: " ."; }
+    33% { content: " .."; }
+    66% { content: " ..."; }
+    100% { content: " ."; }
+}

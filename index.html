@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин товаров</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    </head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <button class="btn-span">
+                <span class="span">
+                    <span class="spanOne"></span> 
+                    <span class="spanOne"></span>
+                    <span class="spanOne"></span>
+                </span> 
+            </button>
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-block">
+            <a class="header-href" href="#">Женщинам</a>
+            <a class="header-href" href="#">Обувь</a>
+            <a class="header-href" href="#">Детям</a>
+            <a class="header-href" href="#">Мужчинам</a>
+            <a class="header-href" href="#">Дом</a>
+            <a class="header-href" href="#">Красота</a>
+            <a class="header-href" href="#">Аксессуары</a> 
+            </div>
+        </div>
+
+        <div class="block-searcher">
+            <div id="search" class="search-add">
+                <h1>Ваши товары</h1>
+                <h1 class="loading-title">Loading</h1>
+            </div>
+            <div class="block-shop">
+                <input id="input-title" class="input-meaning" type="text" placeholder="Название">
+                <input id="input-price" class="input-meaning" type="number" placeholder="Цена">
+                <input id="input-description" class="input-meaning" type="text" placeholder="Описание">
+                <button id="button" class="bnt-add">Добавить</button>
+        </div>
+        </div>
+            
+    </div>
+
+    <script type="module" src="js/index.js"></script>
+</body>
+</html>
