@@ -104,7 +104,7 @@ function creatingDownloadsLocal() {
 window.addEventListener('load', creatingDownloadsLocal);
 
 function setCookies(name, value, days = 7) {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString;
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
     document.cookie = `${name}=${value}; expires=${expires}; path=/`;
 }
 
@@ -115,8 +115,9 @@ function deleteCookies(name) {
 
 
 function getCookies(name) {
-    return document.cookie
-            .split('; ')    
-            .find(row => row.startsWith(name + '='))
-            .split('=')[1]
+    const cookie = document.cookie
+        .split('; ')
+        .find(row => row.startsWith(name + '='));
+    return cookie ? cookie.split('=')[1] : null;
 }
+
