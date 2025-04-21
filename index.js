@@ -41,9 +41,10 @@ function productCreation() {
     price = inputPrice.value,
     description = inputDescription.value;
     let id = Date.now();    
+    const name = 'product_' + id;
 
 
-    let creatingCard = createElements(title, price, description, id);
+    let creatingCard = createElements(title, price, description, name);
 
     if (title === '' || price === '' || description === '') {
         search.innerText = 'Вы не ввели название, цену и описание';
@@ -66,9 +67,9 @@ function productCreation() {
 
     search.appendChild(creatingCard);
     
-    savingDataLocal(title, price, description, id);
+    savingDataLocal(title, price, description, name);
 
-    setCookies(id, title)
+    setCookies(title, price, description, name)
     // регулярные выражения
 }
 
@@ -103,9 +104,17 @@ function creatingDownloadsLocal() {
 }
 window.addEventListener('load', creatingDownloadsLocal);
 
-function setCookies(name, value, days = 7) {
+function setCookies(title, price, description, name, days = 7) {
+    const productObject = {
+        title: title,
+        price: price,
+        description: description,
+    };
+    const product = JSON.stringify(productObject);
+    console.log(product);
+
     const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+    document.cookie = `${name}=${product}; expires=${expires}; path=/`;
 }
 
 
