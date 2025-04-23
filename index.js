@@ -8,10 +8,12 @@ const loading = document.querySelector('.loading-title');
 const btnSpan = document.querySelector('.btn-span');
 const sidebar = document.querySelector('.sidebar');
 
-function createElements(title, price, description ,id ) {
+let products = JSON.parse(localStorage.getItem('card')) || [];
+
+function createElements(title, price, description , name) {
     let creatingCard = document.createElement('div');
     creatingCard.classList.add('cardBlock');
-    creatingCard.setAttribute("data-id", id);
+    creatingCard.setAttribute("data-id", name);
     
     let deletBtn = document.createElement('button');
     deletBtn.classList.add('removeBtn');
@@ -19,7 +21,7 @@ function createElements(title, price, description ,id ) {
 
     deletBtn.onclick = function() {
         creatingCard.remove();
-        deletingDataLocal(id);
+        deletingDataLocal(name);
     };
 
     let cardContents = document.createElement('p');
@@ -37,40 +39,38 @@ function cleaningTheForm() {
 }
 
 function productCreation() {
-    let title = inputTitle.value,
-    price = inputPrice.value,
-    description = inputDescription.value;
+    let title = inputTitle.value.trim();
+    let price = inputPrice.value.trim();
+    let description = inputDescription.value.trim();
     let id = Date.now();    
     const name = 'product_' + id;
-
-
-    let creatingCard = createElements(title, price, description, name);
 
     if (title === '' || price === '' || description === '') {
         search.innerText = 'Вы не ввели название, цену и описание';
         search.classList.add('absence-goods');
-        console.log('Не ввел');
         return;
     } 
     if (!isNaN(title) || !isNaN(description)) {
         search.innerText = 'Вы ввели цифры в название и описание';
         search.classList.add('incorrect-data');
-        console.log('хуй пойми');
         return;
     } 
-    if(price <= 100) {
+    if (isNaN(price) || price <= 100) {
         search.innerText = 'Введите корректную цену';
         search.classList.add('incorrect-price');
-        console.log('Цена');
         return;
-    } 
+    }
 
+    if (isDuplicateId(name)) {
+        search.innerText = 'Такой товар уже существует';
+        return;
+    }
+
+    let creatingCard = createElements(title, price, description, name);
     search.appendChild(creatingCard);
     
     savingDataLocal(title, price, description, name);
-
-    setCookies(title, price, description, name)
-    // регулярные выражения
+    setCookies(title, price, description, name);
 }
 
 btnAddCard.addEventListener('click', () => {
@@ -78,28 +78,24 @@ btnAddCard.addEventListener('click', () => {
     cleaningTheForm();
 });
 
-function savingDataLocal(title, price, description, id) {
-    
-    let products = JSON.parse(localStorage.getItem('card')) || [];
-    products.push({title, price, description, id});
+function savingDataLocal(title, price, description, id) {    
+    products.push({ title, price, description, id });
     localStorage.setItem('card', JSON.stringify(products));
-    console.log(products);
 }
 
 function deletingDataLocal(id) {
-    let products = JSON.parse(localStorage.getItem('card')) || [];
-    products = products.filter(product => product.id !== id);
-    localStorage.setItem('card', JSON.stringify(products));
-    deleteCookies(id);
-    console.log(products)
+    const index = products.findIndex(p => p.id === id);
+    if (index !== -1) {
+        products.splice(index, 1);
+        localStorage.setItem('card', JSON.stringify(products));
+        deleteCookies(id);
+    }
 }
 
 function creatingDownloadsLocal() {
-    let products = JSON.parse(localStorage.getItem('card')) || [];
     products.forEach(product => {
         let creatingCard = createElements(product.title, product.price, product.description, product.id);
         search.appendChild(creatingCard);
-        
     });
 }
 window.addEventListener('load', creatingDownloadsLocal);
@@ -110,23 +106,35 @@ function setCookies(title, price, description, name, days = 7) {
         price: price,
         description: description,
     };
-    const product = JSON.stringify(productObject);
-    console.log(product);
-
+    const product = encodeURIComponent(JSON.stringify(productObject));
     const expires = new Date(Date.now() + days * 864e5).toUTCString();
     document.cookie = `${name}=${product}; expires=${expires}; path=/`;
 }
 
-
 function deleteCookies(name) {
-    document.cookie = `${name}=; expires=${new Date(0)}; path=/`
+    document.cookie = `${name}=; expires=${new Date(0)}; path=/`;
 }
-
 
 function getCookies(name) {
     const cookie = document.cookie
         .split('; ')
         .find(row => row.startsWith(name + '='));
-    return cookie ? cookie.split('=')[1] : null;
+    if (!cookie) return null;
+
+    try {
+        return JSON.parse(decodeURIComponent(cookie.split('=')[1]));
+    } catch (e) {
+        return null;
+    }
 }
 
+function isDuplicateId(id) {
+    return products.some(product => product.id === id);
+}
+
+function clearAllAppCookies() {
+    document.cookie.split(';').forEach(cookie => {
+        const name = cookie.split('=')[0].trim();
+        deleteCookies(name);
+    });
+}
